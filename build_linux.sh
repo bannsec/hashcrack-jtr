@@ -8,6 +8,7 @@ cd $DIR
 # Build it
 sudo docker build -f Dockerfile.linux -t jtrlinux .
 
+mkdir -p hashcrack_jtr/static
 rm hashcrack_jtr/static/john.tar.xz
 
 # Copy it out
