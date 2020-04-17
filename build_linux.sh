@@ -9,7 +9,7 @@ cd $DIR
 sudo docker build -f Dockerfile.linux -t jtrlinux .
 
 mkdir -p hashcrack_jtr/static
-rm hashcrack_jtr/static/john.tar.xz
+rm -f hashcrack_jtr/static/john.tar.xz
 
 # Copy it out
 X=`sudo docker create jtrlinux`
