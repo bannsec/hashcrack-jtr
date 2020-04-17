@@ -16,4 +16,6 @@ X=`sudo docker create jtrlinux`
 sudo docker cp $X:/opt/john.tar.xz hashcrack_jtr/static/.
 sudo docker rm $X
 
+python setup.py bdist --plat-name linux-x86_64
+
 popd
