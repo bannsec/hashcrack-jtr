@@ -1,0 +1,9 @@
+*.swp
+*.pyc
+*.egg-info/
+__handlers__
+dist/
+coverage/
+docs/_build/
+build/
+hashcrack_jtr/static/john.tar.xz

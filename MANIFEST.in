@@ -1,0 +1,6 @@
+recursive-include hashcrack_jtr/static/ *
+include pypi.rst
+exclude hashcrack_jtr.egg-info/*
+global-exclude *.swp
+global-exclude *.pyc
+global-exclude __pycache__
