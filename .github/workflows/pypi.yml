@@ -56,6 +56,5 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
       run: |
-
-          choco install -fy cygwin && \
+          choco install -fy cygwin; refreshenv; \
           C:\tools\cygwin\cygwinsetup.exe -q -P libssl-devel -P libbz2-devel
