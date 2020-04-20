@@ -58,4 +58,7 @@ jobs:
       run: |
           choco install -fy cygwin; refreshenv; \
           dir /S C:\tools
-          #C:\tools\cygwin\cygwinsetup.exe -q -P libssl-devel -P libbz2-devel
+
+      #C:\tools\cygwin\cygwinsetup.exe -q -P libssl-devel -P libbz2-devel
+      #C:\tools\cygwin\cygwinsetup.exe -q -P libgmp-devel -P zlib-devel
+      #C:\tools\cygwin\cygwinsetup.exe -q -P libOpenCL-devel -P libcrypt-devel
