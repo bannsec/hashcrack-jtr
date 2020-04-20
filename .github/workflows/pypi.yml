@@ -55,13 +55,8 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
-      run: {{ item }}
-      with_items:
-          - choco install -fy cygwin
-          - C:\tools\cygwin\cygwinsetup.exe -v -P libssl-devel -P libbz2-devel
-
-#C:\tools\cygwin\cygwinsetup.exe -v -P libgmp-devel -P zlib-devel && ^
-#C:\tools\cygwin\cygwinsetup.exe -v -P libOpenCL-devel -P libcrypt-devel
+      run: |
+          choco install -fy cygwin && refreshenv && C:\tools\cygwin\cygwinsetup.exe -v -P libssl-devel -P libbz2-devel && C:\tools\cygwin\cygwinsetup.exe -v -P libgmp-devel -P zlib-devel && C:\tools\cygwin\cygwinsetup.exe -v -P libOpenCL-devel -P libcrypt-devel
 
 
 #git clone --depth=1 https://github.com/magnumripper/JohnTheRipper.git
