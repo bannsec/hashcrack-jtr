@@ -15,9 +15,7 @@ jobs:
           persist-credentials: false
 
     - name: Build, tag, and push image to Amazon ECR
-      needs: Checkout
       id: build-image
       env:
         IMAGE_TAG: ${{ github.sha }}
-      run: |
-        ./build_linux.sh
+      run: ./build_linux.sh
