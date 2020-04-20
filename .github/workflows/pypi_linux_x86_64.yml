@@ -17,11 +17,12 @@ jobs:
     - name: Build JTR
       env:
         IMAGE_TAG: ${{ github.sha }}
-      run: apt update
-      run: apt dist-upgrade -y
-      run: apt install -y python3 python3-pip
-      run: pip install -U setuptools
-      run: pip install -U pip
-      run: pip install -U wheel
-      run: ./build_linux.sh
-      run: ls -lah dist
+      run: |
+          apt update && \
+          apt dist-upgrade -y && \
+          apt install -y python3 python3-pip && \
+          pip install -U setuptools && \
+          pip install -U pip && \
+          pip install -U wheel && \
+          ./build_linux.sh && \
+          ls -lah dist
