@@ -4,7 +4,7 @@ on: push
 name: Build Releases
 
 jobs:
-  build:
+  build-linux-x86_64:
     name: linux x86_64
     runs-on: ubuntu-18.04
 
@@ -28,4 +28,30 @@ jobs:
           sudo pip3 install -U wheel twine && \
           ./build_linux.sh && \
           ls -lah dist && \
-          twine upload --non-interactive dist/*py3-none-manylinux1_x86_64.whl
+          twine upload --non-interactive --skip-existing dist/*py3-none-manylinux1_x86_64.whl
+
+  ##################
+  # Windows x86_64 #
+  ##################
+
+  build-windows-x86_64:
+    name: Windows x86_64
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout JTR
+      uses: actions/checkout@v2
+      with:
+          persist-credentials: false
+
+    - name: Install python
+      uses: actions/setup-python@v1
+      with:
+          python-version: 3.8
+
+    - name: Build JTR
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
+      run: choco list
