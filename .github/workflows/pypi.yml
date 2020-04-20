@@ -52,7 +52,10 @@ jobs:
 
     - name: Build JTR
       env:
-        IMAGE_TAG: ${{ github.sha }}
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
-      run: choco list
+          IMAGE_TAG: ${{ github.sha }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
+      run: |
+
+          choco install -fy cygwin && \
+          C:\tools\cygwin\cygwinsetup.exe -q -P libssl-devel -P libbz2-devel
