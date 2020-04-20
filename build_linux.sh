@@ -22,7 +22,7 @@ sudo docker rm $X
 git checkout hashcrack_jtr/version.py
 sed -i "s/VERSION/`date +%y.%m.%d`/g" hashcrack_jtr/version.py
 
-python setup.py bdist_wheel --plat-name manylinux1_x86_64 --python-tag "py3"
+python3 setup.py bdist_wheel --plat-name manylinux1_x86_64 --python-tag "py3"
 
 # Cleanup change
 git checkout hashcrack_jtr/version.py
