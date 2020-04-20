@@ -24,7 +24,7 @@ class John:
         self.name = name or "john.exe" # Because nix doesn't care about extensions
 
     def _enter_windows(self):
-        with tarfile.open(os.path.join(HERE, "static", "john.exe.tar.xz"), "r") as src:
+        with tarfile.open(os.path.join(HERE, "static", "john.tar.xz"), "r") as src:
             src.extractall(self._dir_path)
 
         orig = os.path.join(self._dir_path, "john.exe")

@@ -6,7 +6,7 @@ RUN unset LD_LIBRARY_PATH && apt update && apt dist-upgrade -y && apt install -y
 ENV CFLAGS=$CXXFLAGS CPPFLAGS=$CXXFLAGS
 
 RUN mkdir -p /opt && cd /opt && git clone --depth=1 https://github.com/magnumripper/JohnTheRipper.git && cd JohnTheRipper/src && \
-    ./configure CFLAGS="$CFLAGS -O3 -g0 -static" CPPFLAGS="$CPPFLAGS -O3 -g0 -static" LDFLAGS="$LDFLAGS -static" LIBS="-lssl -lcrypto" && \
+    ./configure CFLAGS="$CFLAGS -O3 -g0 -static" CPPFLAGS="$CPPFLAGS -O3 -g0 -static" LDFLAGS="$LDFLAGS -static" LIBS="-lssl -lcrypto" --disable-native-tests && \
     make -sj`nproc` && strip /opt/JohnTheRipper/run/* ; mv /opt/JohnTheRipper/run/john /opt/JohnTheRipper/run/john.exe && cd /opt/JohnTheRipper/run/ && \
     tar caf /opt/john.tar.xz *
 
