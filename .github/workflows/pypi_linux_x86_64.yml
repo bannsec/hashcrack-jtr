@@ -18,11 +18,11 @@ jobs:
       env:
         IMAGE_TAG: ${{ github.sha }}
       run: |
-          apt update && \
-          apt dist-upgrade -y && \
-          apt install -y python3 python3-pip && \
-          pip install -U setuptools && \
-          pip install -U pip && \
-          pip install -U wheel && \
+          sudo apt update && \
+          sudo apt dist-upgrade -y && \
+          sudo apt install -y python3 python3-pip && \
+          sudo pip3 install -U setuptools && \
+          sudo pip3 install -U pip && \
+          sudo pip3 install -U wheel && \
           ./build_linux.sh && \
           ls -lah dist
