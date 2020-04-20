@@ -1,21 +1,27 @@
 
 on: push
 
-name: Build jtr for linux x86_64
+name: Build Releases
 
 jobs:
   build:
-    name: jtr for linux x86_64
+    name: linux x86_64
     runs-on: ubuntu-18.04
 
     steps:
-    - name: Checkout
+    - name: Checkout JTR
       uses: actions/checkout@v2
       with:
           persist-credentials: false
 
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
+    - name: Build JTR
       env:
         IMAGE_TAG: ${{ github.sha }}
+      run: apt update
+      run: apt dist-upgrade -y
+      run: apt install -y python3 python3-pip
+      run: pip install -U setuptools
+      run: pip install -U pip
+      run: pip install -U wheel
       run: ./build_linux.sh
+      run: ls -lah dist
