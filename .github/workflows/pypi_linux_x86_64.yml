@@ -1,0 +1,22 @@
+
+on: push
+
+name: Build jtr for linux x86_64
+
+jobs:
+  build:
+    name: jtr for linux x86_64
+    runs-on: ubuntu-18.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      persist-credentials: false
+
+    - name: Build, tag, and push image to Amazon ECR
+      needs: Checkout
+      id: build-image
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        ./build_linux.sh
