@@ -1,35 +1,38 @@
 
 on: push
-
-name: Build Releases
-
+name: Auto PyPI Builds
 jobs:
 
-    #build-linux-x86_64:
-    #    name: linux x86_64
-    #    runs-on: ubuntu-18.04
-    #
-    #    steps:
-    #    - name: Checkout JTR
-    #      uses: actions/checkout@v2
-    #      with:
-    #          persist-credentials: false
-    #
-    #    - name: Build JTR
-    #      env:
-    #        IMAGE_TAG: ${{ github.sha }}
-    #        TWINE_USERNAME: __token__
-    #        TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
-    #      run: |
-    #          sudo apt update && \
-    #          sudo apt dist-upgrade -y && \
-    #          sudo apt install -y python3 python3-pip && \
-    #          sudo pip3 install -U setuptools && \
-    #          sudo pip3 install -U pip && \
-    #          sudo pip3 install -U wheel twine && \
-    #          ./build_linux.sh && \
-    #          ls -lah dist && \
-    #          twine upload --non-interactive --skip-existing dist/*py3-none-manylinux1_x86_64.whl
+  ################
+  # Linux x86_64 #
+  ################
+
+  build-linux-x86_64:
+      name: linux x86_64
+      runs-on: ubuntu-18.04
+  
+      steps:
+      - name: Checkout JTR
+        uses: actions/checkout@v2
+        with:
+            persist-credentials: false
+  
+      - name: Build release
+        run: |
+            sudo apt update && \
+            sudo apt dist-upgrade -y && \
+            sudo apt install -y python3 python3-pip && \
+            sudo pip3 install -U setuptools && \
+            sudo pip3 install -U pip && \
+            sudo pip3 install -U wheel twine && \
+            ./build_linux.sh && \
+            ls -lah dist
+      - name: Deploy release
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
+        run: twine upload --non-interactive --skip-existing dist/*py3-none-manylinux1_x86_64.whl
 
   ##################
   # Windows x86_64 #
