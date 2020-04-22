@@ -37,7 +37,7 @@ jobs:
 
   build-windows-x86_64:
     name: Windows x86_64
-    runs-on: windows-latest
+    runs-on: ubuntu-18.04
 
     steps:
     - name: Checkout JTR
