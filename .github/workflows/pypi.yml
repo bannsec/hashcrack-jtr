@@ -45,18 +45,20 @@ jobs:
       with:
           persist-credentials: false
 
-    - name: Install python
-      uses: actions/setup-python@v1
-      with:
-          python-version: 3.8
+    - name: Build release
+      run: |
+        sudo apt update && \
+        sudo apt dist-upgrade -y && \
+        sudo apt install -y python3 python3-pip && \
+        sudo pip3 install -U setuptools && \
+        sudo pip3 install -U pip && \
+        sudo pip3 install -U wheel twine && \
+        ./build_win64.sh && \
+        ls -lah dist
 
-    - name: Setup environment
+    - name: Deploy release
       env:
           IMAGE_TAG: ${{ github.sha }}
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TWINE_TOKEN }}
-      run: |
-          choco install -fy cygwin && refreshenv && C:\tools\cygwin\cygwinsetup.exe -v -P libssl-devel -P libbz2-devel && C:\tools\cygwin\cygwinsetup.exe -v -P libgmp-devel -P zlib-devel && C:\tools\cygwin\cygwinsetup.exe -v -P libOpenCL-devel -P libcrypt-devel
-
-
-#git clone --depth=1 https://github.com/magnumripper/JohnTheRipper.git
+      run: twine upload --non-interactive --skip-existing dist/*win_amd64.whl
