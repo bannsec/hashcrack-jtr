@@ -1,5 +1,12 @@
 
-on: push
+on: 
+    push:
+        branches:
+            - actions
+    schedule:
+        # 0400 every Sunday build a new version
+        - cron:  '0 4 * * 0'
+
 name: Auto PyPI Builds
 jobs:
 
