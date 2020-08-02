@@ -25,6 +25,8 @@ jobs:
             persist-credentials: false
   
       - name: Build release
+        env:
+            ACCEPT_EULA: Y
         run: |
             sudo apt update && \
             sudo apt dist-upgrade -y && \
