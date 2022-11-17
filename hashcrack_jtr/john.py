@@ -25,7 +25,26 @@ class John:
 
     def _enter_windows(self):
         with tarfile.open(os.path.join(HERE, "static", "john.tar.xz"), "r") as src:
-            src.extractall(self._dir_path)
+            def is_within_directory(directory, target):
+                
+                abs_directory = os.path.abspath(directory)
+                abs_target = os.path.abspath(target)
+            
+                prefix = os.path.commonprefix([abs_directory, abs_target])
+                
+                return prefix == abs_directory
+            
+            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+            
+                for member in tar.getmembers():
+                    member_path = os.path.join(path, member.name)
+                    if not is_within_directory(path, member_path):
+                        raise Exception("Attempted Path Traversal in Tar File")
+            
+                tar.extractall(path, members, numeric_owner=numeric_owner) 
+                
+            
+            safe_extract(src, self._dir_path)
 
         orig = os.path.join(self._dir_path, "john.exe")
         self.path = os.path.join(self._dir_path, self.name)
@@ -36,7 +55,26 @@ class John:
         self.path = os.path.join(self._dir_path, self.name)
 
         with tarfile.open(os.path.join(HERE, "static", "john.tar.xz"), "r") as src:
-            src.extractall(self._dir_path)
+            def is_within_directory(directory, target):
+                
+                abs_directory = os.path.abspath(directory)
+                abs_target = os.path.abspath(target)
+            
+                prefix = os.path.commonprefix([abs_directory, abs_target])
+                
+                return prefix == abs_directory
+            
+            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+            
+                for member in tar.getmembers():
+                    member_path = os.path.join(path, member.name)
+                    if not is_within_directory(path, member_path):
+                        raise Exception("Attempted Path Traversal in Tar File")
+            
+                tar.extractall(path, members, numeric_owner=numeric_owner) 
+                
+            
+            safe_extract(src, self._dir_path)
 
         orig = os.path.join(self._dir_path, "john.exe")
         self.path = os.path.join(self._dir_path, self.name)
